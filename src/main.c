@@ -9,6 +9,9 @@ enum Shapes {
   CONE,
 };
 
+int width; 
+int height;
+
 
 enum Shapes shape; // co ma narysować
 
@@ -37,6 +40,8 @@ void klawiatura(unsigned char key, int x, int y)
 }
 
 void reshape(int w, int h) {
+    width = w;
+    height = h;
   glViewport(0, 0, (GLsizei) w, (GLsizei) h);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
@@ -68,7 +73,9 @@ void display() {
   glEnd();
   */
   glPushMatrix();
-  glTranslatef(120.0f, 120.0f, 0.0f);
+  
+  glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
+
 
   switch (shape) {
     case SPHERE:
