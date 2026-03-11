@@ -73,7 +73,7 @@ void display() {
 	glEnd();
 
 	glPushMatrix();
-
+	glColor3f(0.0, 1.0, 1.0);
 	glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
 
 	int time = glutGet(GLUT_ELAPSED_TIME);
