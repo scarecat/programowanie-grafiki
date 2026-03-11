@@ -16,6 +16,8 @@ set(glew-cmake_BUILD_SHARED OFF)
 set(GLFW_BUILD_TESTS OFF)
 set(GLFW_BUILD_DOCS ON)
 
+set(FREEGLUT_BUILD_DEMOS OFF)
+
 #set(PATCH_ASSIMP ON)
 #if(PATCH_ASSIMP) 
 #  set(patch_assimp git apply ${CMAKE_CURRENT_SOURCE_DIR}/misc/assimp-6.0.4-zlib-1.3.2.patch || true)
