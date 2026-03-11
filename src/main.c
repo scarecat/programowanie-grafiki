@@ -75,7 +75,10 @@ void display() {
   glPushMatrix();
   
   glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
-
+  
+  int time = glutGet(GLUT_ELAPSED_TIME);
+  
+  glRotatef(time / 10.0f, 0.0f, 1.0f, 1.0f);
 
   switch (shape) {
     case SPHERE:
