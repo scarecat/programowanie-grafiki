@@ -1,7 +1,6 @@
-#include <GL/gl.h>
-#include <stdlib.h>
-#include <GL/glut.h> // dodanie biblioteki GLUT
+#include <GL/freeglut.h> // dodanie biblioteki GLUT
 #include <GL/glu.h>
+#include <stdlib.h>
 
 // funkcja obsługi klawiatury
 void klawiatura(unsigned char key, int x, int y)

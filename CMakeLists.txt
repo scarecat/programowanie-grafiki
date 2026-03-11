@@ -48,7 +48,6 @@ FetchContent_Declare(
   PATCH_COMMAND ${patch_assimp}
 )
 
-
 FetchContent_MakeAvailable(freeglut glew)
 
 
@@ -56,19 +55,19 @@ target_sources(game PRIVATE
   #src/stb/stb_image.h
   src/main.c
 )
-
+target_include_directories(game PRIVATE ${freeglut_SOURCE_DIR}/include)
 target_include_directories(game PRIVATE include/)
 target_include_directories(game PRIVATE src/)
-target_link_libraries(game freeglut libglew_static 
-  #assimp
-  GLU
-)
 
+target_link_libraries(game freeglut_static)
+
+
+if(IS_DIRECTORY ${CMAKE_SOURCE_DIR}/assets)
 add_custom_target(
   copy_assets
   COMMAND ${CMAKE_COMMAND} -E copy_directory              
   ${CMAKE_SOURCE_DIR}/assets ${CMAKE_BINARY_DIR}/assets
   COMMENT "Copying assets" VERBATIM
 )
-
 add_dependencies(game copy_assets)
+endif()
