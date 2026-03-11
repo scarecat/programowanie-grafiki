@@ -29,7 +29,7 @@ void klawiatura(unsigned char key, int x, int y)
       break;
     case '3':
       shape = TEAPOT;
-      break;
+      break;    
 
 
     case 27:
@@ -62,16 +62,16 @@ void drawRect(int x, int y, int w, int h) {
 
 // funkcja wyświetlająca obraz
 void display() {
-  glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
   glColor3f(0.0, 1.0, 0.0);
-  /*
+  
   glBegin(GL_QUADS);
-  drawRect(120, 120, 30, 200);
-  drawRect(150, 290, 100, 30);
-  drawRect(150, 220, 100, 30);
+  drawRect(10, 120, 30, 200);
+  drawRect(10, 290, 100, 30);
+  drawRect(10, 220, 100, 30);
   glEnd();
-  */
+  
   glPushMatrix();
   
   glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
