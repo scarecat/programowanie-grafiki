@@ -82,14 +82,13 @@ void display() {
 
   switch (shape) {
     case SPHERE:
-      glutSolidSphere(100, 32, 16);
+      glutWireSphere(100, 32, 16);
       break;
     case CONE:
-      glRotatef(270.0f, 1.0f, 0.0f, 0.0f);
-      glutSolidCone(100.0f, 100.0f, 32, 16);
+      glutWireCone(100.0f, 100.0f, 32, 16);
       break;
     case TEAPOT:
-      glutSolidTeapot(100);
+      glutWireTeapot(100);
       break;
   }
 
