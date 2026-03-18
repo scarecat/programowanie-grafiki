@@ -63,22 +63,48 @@ void drawRect(int x, int y, int w, int h) {
 }
 
 
-GLuint quadList;
+GLuint drawList;
 
 
 // funkcja wyświetlająca obraz
 void display() {
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(0.0, 1.0, 0.0);
 
   int time = glutGet(GLUT_ELAPSED_TIME);
+  glNewList(drawList, GL_COMPILE_AND_EXECUTE);
 	glPushMatrix();
-
   glTranslatef(0,100,0);
-  glutSolidTeapot(100.0f);
+  glTranslatef(+100,0,0);
+	glColor3f(1.0, 0.0, 0.0);
+  glPushMatrix();
+  glRotatef(time/10.0f, 0.5f, 1.0f, 0.5f);
+  glutSolidTeapot(50.0f);
+  glPopMatrix();
 
+  glColor3f(0.0, 0.0f, 1.0f);
+  glTranslatef(-200,0,0);
+  glutSolidCube(50.0f);
 	glPopMatrix();
+
+  glEndList();
+
+  glPushMatrix();
+  glScalef(1.0f, -1.0f, 1.0f);
+  
+  glCallList(drawList);
+  glPopMatrix();
+
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glColor4f(1.0f, 1.0f, 1.0f, 0.8f);
+  glBegin(GL_QUADS);
+  glVertex2f(-width/2.0f, 0.0f);
+  glVertex2f(+width/2.0f, 0.0f);
+  glVertex2f(+width/2.0f, -height/2.0f);
+  glVertex2f(-width/2.0f, -height/2.0f);
+  glEnd();
+
+
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -94,14 +120,10 @@ int main(int argc, char* argv[]) {
 	glutKeyboardFunc(klawiatura); // ustawienie funkcji obsługi klawiatury
   
 
-  quadList = glGenLists(1);  
-  glNewList(quadList, GL_COMPILE);
-  glBegin(GL_QUADS);
-  drawRect(0,0,200,200);
-  glEnd();
-  glEndList();
+  drawList = glGenLists(1);  
 
 	//glEnable(GL_DEPTH_TEST);
+  glEnable(GL_BLEND);
 	glutMainLoop(); // wejście do głównej pętli programu
 	return 0;
 }
