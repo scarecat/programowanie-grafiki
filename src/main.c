@@ -61,9 +61,7 @@ void drawRect(int x, int y, int w, int h) {
 }
 
 
-GLUquadricObj *quadric1;
-GLUquadricObj *quadric2;
-GLuint lista1;
+GLuint quadList;
 
 
 // funkcja wyświetlająca obraz
@@ -82,27 +80,31 @@ void display() {
 	glEnd();
   */
 
+  int time = glutGet(GLUT_ELAPSED_TIME);
 	glPushMatrix();
-	glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
 
-	glPushMatrix();
-	glColor3f(0.0, 1.0, 1.0);
-	glTranslatef(-160.0f, 80.0f, 0.0f);
-  glRotatef(75.0f, 1.0f, 0.0f, 0.0f);
-  gluCylinder(quadric2, 80.0f, 80.0f, 160.0f, 32, 16);
-	glPopMatrix();
+  glRotatef(time / 100.0f, 1.0f, 1.0f, 0.0f);
+	glTranslatef(width / 2.0f - 100.0f, height / 2.0f - 100.0f, 0.0f);
 
-	glPushMatrix();
-	glColor3f(1.0, 0.0, 0.0);
-	glTranslatef(+160.0f, 00.0f, 0.0f);
+  // draw here
+  //
+  
+
+  glCallList(quadList);
   glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-  gluSphere(quadric2, 80.0f, 32, 16);
-	glPopMatrix();
+  glCallList(quadList);
+  glTranslatef(00.0f, 0.0f, -200.0f);
+  glCallList(quadList);
+  glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+  glTranslatef(00.0f, -200.0f, +200.0f);
+  glCallList(quadList);
+  glEnd();
 
 	glPopMatrix();
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
+
 
 int main(int argc, char* argv[]) {
 	glutInit(&argc, argv);
@@ -114,12 +116,12 @@ int main(int argc, char* argv[]) {
 	glutKeyboardFunc(klawiatura); // ustawienie funkcji obsługi klawiatury
   
 
-  quadric1 = gluNewQuadric();
-  quadric2 = gluNewQuadric();
-
-
-  gluQuadricDrawStyle(quadric1, GLU_LINE);
-  gluQuadricDrawStyle(quadric2, GLU_LINE);
+  quadList = glGenLists(1);  
+  glNewList(quadList, GL_COMPILE);
+  glBegin(GL_QUADS);
+  drawRect(0,0,200,200);
+  glEnd();
+  glEndList();
 
 	//glEnable(GL_DEPTH_TEST);
 	glutMainLoop(); // wejście do głównej pętli programu
