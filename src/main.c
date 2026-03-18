@@ -48,7 +48,9 @@ void reshape(int w, int h) {
 	glLoadIdentity();
 	//gluOrtho2D(0.0, (GLdouble) w, 0.0, (GLdouble) h);
 	//gluOrtho2D(0.0, (GLdouble) w, 0.0, (GLdouble) h);
-	glOrtho(0.0f, (GLdouble)w, 0.0f, (GLdouble)h, -300.0f, 300.0f);
+  
+	//glOrtho(0.0f, (GLdouble)w, 0.0f, (GLdouble)h, -300.0f, 300.0f);
+	glOrtho(-w/2.0, w/2.0, -h/2.0, h/2.0, -300.0f, 300.0f);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
@@ -69,36 +71,12 @@ void display() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0.0, 1.0, 0.0);
-  
-
-  // 'F'
-  /*
-	glBegin(GL_QUADS);
-	drawRect(10, 120, 30, 200);
-	drawRect(10, 290, 100, 30);
-	drawRect(10, 220, 100, 30);
-	glEnd();
-  */
 
   int time = glutGet(GLUT_ELAPSED_TIME);
 	glPushMatrix();
 
-  glRotatef(time / 100.0f, 1.0f, 1.0f, 0.0f);
-	glTranslatef(width / 2.0f - 100.0f, height / 2.0f - 100.0f, 0.0f);
-
-  // draw here
-  //
-  
-
-  glCallList(quadList);
-  glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-  glCallList(quadList);
-  glTranslatef(00.0f, 0.0f, -200.0f);
-  glCallList(quadList);
-  glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-  glTranslatef(00.0f, -200.0f, +200.0f);
-  glCallList(quadList);
-  glEnd();
+  glTranslatef(0,100,0);
+  glutSolidTeapot(100.0f);
 
 	glPopMatrix();
 	glutSwapBuffers();
