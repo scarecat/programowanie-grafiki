@@ -1,6 +1,7 @@
 #include <GL/freeglut.h> // dodanie biblioteki GLUT
 #include <GL/freeglut_std.h>
 #include <GL/gl.h>
+#include <GL/glu.h>
 #include <stdlib.h>
 
 enum Shapes {
@@ -60,37 +61,43 @@ void drawRect(int x, int y, int w, int h) {
 }
 
 
+GLUquadricObj *quadric1;
+GLUquadricObj *quadric2;
+GLuint lista1;
+
+
 // funkcja wyświetlająca obraz
 void display() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0.0, 1.0, 0.0);
+  
 
+  // 'F'
+  /*
 	glBegin(GL_QUADS);
 	drawRect(10, 120, 30, 200);
 	drawRect(10, 290, 100, 30);
 	drawRect(10, 220, 100, 30);
 	glEnd();
+  */
+
+	glPushMatrix();
+	glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
 
 	glPushMatrix();
 	glColor3f(0.0, 1.0, 1.0);
-	glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
+	glTranslatef(-160.0f, 80.0f, 0.0f);
+  glRotatef(75.0f, 1.0f, 0.0f, 0.0f);
+  gluCylinder(quadric2, 80.0f, 80.0f, 160.0f, 32, 16);
+	glPopMatrix();
 
-	int time = glutGet(GLUT_ELAPSED_TIME);
-
-	glRotatef(time / 10.0f, 0.0f, 1.0f, 1.0f);
-
-	switch (shape) {
-	case SPHERE:
-		glutWireSphere(100, 32, 16);
-		break;
-	case CONE:
-		glutWireCone(100.0f, 100.0f, 32, 16);
-		break;
-	case TEAPOT:
-		glutWireTeapot(100);
-		break;
-	}
+	glPushMatrix();
+	glColor3f(1.0, 0.0, 0.0);
+	glTranslatef(+160.0f, 00.0f, 0.0f);
+  glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+  gluSphere(quadric2, 80.0f, 32, 16);
+	glPopMatrix();
 
 	glPopMatrix();
 	glutSwapBuffers();
@@ -105,7 +112,16 @@ int main(int argc, char* argv[]) {
 	glutDisplayFunc(display); // ustawienie funkcji odpowiedzialnej za
 	glutReshapeFunc(reshape); // ustawienie funkcji wywoływanej przy
 	glutKeyboardFunc(klawiatura); // ustawienie funkcji obsługi klawiatury
+  
+
+  quadric1 = gluNewQuadric();
+  quadric2 = gluNewQuadric();
+
+
+  gluQuadricDrawStyle(quadric1, GLU_LINE);
+  gluQuadricDrawStyle(quadric2, GLU_LINE);
+
+	//glEnable(GL_DEPTH_TEST);
 	glutMainLoop(); // wejście do głównej pętli programu
-	glEnable(GL_DEPTH_TEST);
 	return 0;
 }

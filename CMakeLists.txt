@@ -62,7 +62,7 @@ target_include_directories(game PRIVATE ${freeglut_SOURCE_DIR}/include)
 target_include_directories(game PRIVATE include/)
 target_include_directories(game PRIVATE src/)
 
-target_link_libraries(game freeglut_static)
+target_link_libraries(game freeglut_static GLU)
 
 
 if(IS_DIRECTORY ${CMAKE_SOURCE_DIR}/assets)
