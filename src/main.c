@@ -67,7 +67,7 @@ GLuint quadList;
 // funkcja wyświetlająca obraz
 void display() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(0.0, 1.0, 0.0);
   
 
@@ -83,20 +83,32 @@ void display() {
   int time = glutGet(GLUT_ELAPSED_TIME);
 	glPushMatrix();
 
-  glRotatef(time / 100.0f, 1.0f, 1.0f, 0.0f);
 	glTranslatef(width / 2.0f - 100.0f, height / 2.0f - 100.0f, 0.0f);
+  glRotatef(time / 10.0f, 0.5f, 0.5f, 0.5f);
 
   // draw here
   //
   
 
+  glColor3f(1.0f, 0.0f, 0.0f);
   glCallList(quadList);
   glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+  glColor3f(1.0f, 1.0f, 0.0f);
   glCallList(quadList);
   glTranslatef(00.0f, 0.0f, -200.0f);
+  glColor3f(0.0f, 1.0f, 0.0f);
   glCallList(quadList);
   glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
   glTranslatef(00.0f, -200.0f, +200.0f);
+  glColor3f(0.0f, 1.0f, 1.0f);
+  glCallList(quadList);
+
+  glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+  glColor3f(0.0f, 0.0f, 1.0f);
+  glCallList(quadList);
+
+  glTranslatef(00.0f, 000.0f, 200.0f);
+  glColor3f(1.0f, 0.0f, 1.0f);
   glCallList(quadList);
   glEnd();
 
@@ -123,7 +135,8 @@ int main(int argc, char* argv[]) {
   glEnd();
   glEndList();
 
-	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
+  glDepthFunc(GL_LESS);
 	glutMainLoop(); // wejście do głównej pętli programu
 	return 0;
 }
